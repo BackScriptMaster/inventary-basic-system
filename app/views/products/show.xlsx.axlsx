@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Products Details") do |sheet|
+  sheet.add_row(["Id", @product.id])
+  sheet.add_row(["Reference", @product.reference])
+  sheet.add_row(["Name", @product.name])
+  sheet.add_row(["Amount", @product.quantity])
+  sheet.add_row(["Description", @product.description])
+  sheet.add_row(["Creation date", @product.created_at])
+  sheet.add_row([]) 
+  sheet.add_row(['Type', 'Amount', 'Comment', 'Date-Hour']) 
+  @product.movements.each do |movement|
+    sheet.add_row [movement.movement_type_name, movement.quantity, movement.comment, movement.created_at]
+  end
+end
+
+#son muy importante los espacios 
+#ejemplo:
+#sheet.add_row["Id", "References", "Name", "Amount"] => Error
+#sheet.add_row ["Id", "References", "Name", "Amount"] => Ok
+
